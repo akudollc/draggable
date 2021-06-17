@@ -259,6 +259,12 @@ export default class Sortable extends Draggable {
     this.startIndex = null;
     this.startContainer = null;
   }
+  revert() {
+    if (this.startContainer == null) return;
+    const children = this.getDraggableElementsForContainer(this.startContainer);
+    const moves = move({ source: this.source, over: this.originalSource, overContainer: this.startContainer, children });
+    document.dispatchEvent(new MouseEvent('mouseup'));
+  }
 }
 
 function index(element) {
